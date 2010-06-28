@@ -1,0 +1,46 @@
+= First, install alfajor and read the docs for it. = 
+
+= In the project root, create a separate folder for alfajor tests =
+
+jeff@snazz:~/projects/testproject$ mkdir functional
+
+* then add this to functional/__init__.py :
+
+from alfajor import WebBrowser
+browser = WebBrowser()
+browser.configure_in_scope('self-tests')
+
+= Settings =
+
+add 'django_alfajor' to apps, then add these settings:
+
+TEST_RUNNER='django_alfajor.test_runner.run_tests'
+
+# directories with alfajor tests in them
+# MUST be a list, should be toplevel
+ALFAJOR_NAMES = ['functional']
+
+= functional/alfajor.ini =
+
+# Create an alfajor.ini, using the alfajor/tests/browser/alfajor.ini as 
+# a template, then change the cmd line as seen below:
+
+[self-tests+browser.selenium]
+cmd = python manage.py alfajor-runserver 8001
+server_url = http://localhost:8001
+ping-address = localhost:8001
+
+= Running =
+
+# start the selenium server
+java -jar selenium-server.jar
+
+# run the tests
+./python manage.py test functional -- --browser=firefox
+
+= Errata =
+
+* WSGI tests unsupported yet.
+* Known bug: running functional tests also runs other tests
+* It'd be better to write a new test.py and stick it in management/commands. Go for it.
+* It'd be nice to automatically start up selenium.
