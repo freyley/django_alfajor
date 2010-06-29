@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 import os
 import sys
+from django.conf import settings
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -15,6 +16,19 @@ class Command(BaseCommand):
 
     # Validation is called explicitly each time the server is reloaded.
     requires_model_validation = False
+
+    def set_test_environment(self):
+        try:
+            test_db_name = 'test_' + settings.DATABASES['default']['NAME']
+            if settings.DATABASES['default']['TEST_NAME']:
+                test_db_name = settings.DATABASES['default']['TEST_NAME']
+            settings.DATABASES['default']['NAME'] = test_db_name
+        except AttributeError, ae:
+            if settings.TEST_DATABASE_NAME:
+                settings.DATABASE_NAME = settings.TEST_DATABASE_NAME
+            else:
+                settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
+
 
     def handle(self, addrport='', *args, **options):
         import django
@@ -49,11 +63,7 @@ class Command(BaseCommand):
             print "\nDjango version %s, using settings %r" % (django.get_version(), settings.SETTINGS_MODULE)
             print "Alfajor test server is running at http://%s:%s/" % (addr, port)
             print "Changing settings to use test settings"
-            if settings.TEST_DATABASE_NAME:
-                settings.DATABASE_NAME = settings.TEST_DATABASE_NAME
-            else:
-                settings.DATABASE_NAME = 'test_' + settings.DATABASE_NAME
-
+            self.set_test_environment()
             print "Quit the server with %s." % quit_command
 
             # django.core.management.base forces the locale to en-us. We should
