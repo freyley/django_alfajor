@@ -1,0 +1,16 @@
+AUTHORS
+CHANGES
+LICENSE
+MANIFEST.in
+README
+setup.py
+django_alfajor/__init__.py
+django_alfajor/test_runner.py
+django_alfajor.egg-info/PKG-INFO
+django_alfajor.egg-info/SOURCES.txt
+django_alfajor.egg-info/dependency_links.txt
+django_alfajor.egg-info/requires.txt
+django_alfajor.egg-info/top_level.txt
+django_alfajor/management/__init__.py
+django_alfajor/management/commands/__init__.py
+django_alfajor/management/commands/alfajor-runserver.py
