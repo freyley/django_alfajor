@@ -44,3 +44,5 @@ java -jar selenium-server.jar
 * Known bug: running functional tests also runs other tests
 * It'd be better to write a new test.py and stick it in management/commands. Go for it.
 * It'd be nice to automatically start up selenium.
+* Doesn't work in sqlite. Under sqlite, django creates an in-memory test database, which the modified runserver command is unable to interact with. For this to work, it'd need the new test.py as noted above.
+* You can use Django's fixture management if you use TransactionTestCase and run from django.db import transaction; transaction.commit() before running your tests. Otherwise (or if you use django's TestCase), you'll be testing through the web browser against the database while modified fixtures directly but in a transaction, so you won't see the data from the fixtures.
