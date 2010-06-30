@@ -139,7 +139,11 @@ def run_tests(test_labels, verbosity=1, interactive=True, extra_tests=[]):
     setup_funcs, teardown_funcs = get_test_enviroment_functions()
     # Prepare django for testing.
     setup_test_environment(setup_funcs)
-    old_db_name = settings.DATABASE_NAME
+    # Django 1.1/1.2 compatibility
+    try:
+        old_db_name = settings.DATABASES['default']['NAME']
+    except AttributeError, ae:
+        old_db_name = settings.DATABASE_NAME
     connection.creation.create_test_db(verbosity, autoclobber=not interactive)
 
     # Pretend it's a production environment.
