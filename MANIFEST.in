@@ -1,6 +1,5 @@
 include LICENSE
 include README
-include AUTHORS
 include CHANGES
 recursive-include tests *py *ini *css *js *jpg *html
 #recursive-include docs/source *rst *py
