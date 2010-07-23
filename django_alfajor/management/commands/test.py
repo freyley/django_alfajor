@@ -25,6 +25,7 @@ TestRunner = get_runner(settings)
 
 if hasattr(TestRunner, 'options'):
     extra_options = TestRunner.options
+    print extra_options
 else:
     extra_options = []
 

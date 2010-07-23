@@ -126,7 +126,9 @@ def get_test_enviroment_functions():
 def setup_test_environment(setup_funcs):
     utils.setup_test_environment()
     for func in setup_funcs:
+	print "before func"
         func()
+	print "after func"
 
 
 def teardown_test_environment(teardown_funcs):
