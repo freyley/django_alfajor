@@ -1,4 +1,3 @@
-AUTHORS
 CHANGES
 LICENSE
 MANIFEST.in
@@ -11,6 +10,13 @@ django_alfajor.egg-info/SOURCES.txt
 django_alfajor.egg-info/dependency_links.txt
 django_alfajor.egg-info/requires.txt
 django_alfajor.egg-info/top_level.txt
+django_alfajor/django_nose/__init__.py
+django_alfajor/django_nose/plugin.py
+django_alfajor/django_nose/runner.py
+django_alfajor/django_nose/testloader.py
+django_alfajor/django_nose/management/__init__.py
+django_alfajor/django_nose/management/commands/__init__.py
+django_alfajor/django_nose/management/commands/test.py
 django_alfajor/management/__init__.py
 django_alfajor/management/commands/__init__.py
 django_alfajor/management/commands/alfajor-runserver.py
