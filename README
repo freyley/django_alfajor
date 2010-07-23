@@ -14,11 +14,7 @@ browser.configure_in_scope('self-tests')
 
 add 'django_alfajor' to apps, then add these settings:
 
-TEST_RUNNER='django_alfajor.django_nose.NoseTestSuiteRunner'
-
-(you can still use the old version, in the following way:
 TEST_RUNNER='django_alfajor.test_runner.run_tests'
-but it's not recommended.)
 
 # directories with alfajor tests in them
 # MUST be a list, should be toplevel
