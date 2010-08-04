@@ -1,0 +1,3 @@
+Django
+alfajor==0.1
+django-nose==0.1
