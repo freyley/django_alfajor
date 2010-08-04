@@ -1,7 +1,0 @@
-include LICENSE
-include README
-include CHANGES
-recursive-include tests *py *ini *css *js *jpg *html
-#recursive-include docs/source *rst *py
-#recursive-include docs/text *txt
-#recursive-include docs/html *html *txt *png *css *js *inv
