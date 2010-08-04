@@ -10,15 +10,21 @@ from alfajor import WebBrowser
 browser = WebBrowser()
 browser.configure_in_scope('self-tests')
 
-= Settings =
+= django-nose =
 
-add 'django_alfajor' to apps, then add these settings:
+Install django-nose. You'll need to change one line to make it work (until a patch is accepted):
 
-TEST_RUNNER='django_alfajor.test_runner.run_tests'
-
-# directories with alfajor tests in them
-# MUST be a list, should be toplevel
-ALFAJOR_NAMES = ['functional']
+--- a/django_nose/runner.py
++++ b/django_nose/runner.py
+@@ -85,7 +85,7 @@ def _get_options():
+     cfg_files = nose.core.all_config_files()
+     manager = nose.core.DefaultPluginManager()
+     config = nose.core.Config(env=os.environ, files=cfg_files, plugins=manager)
+-    options = config.getParser().option_list
++    options = config.getParser()._get_all_options()
+     django_opts = [opt.dest for opt in BaseCommand.option_list] + ['version']
+     return tuple(o for o in options if o.dest not in django_opts and
+                                        o.action != 'help')
 
 = functional/alfajor.ini =
 
@@ -26,7 +32,7 @@ ALFAJOR_NAMES = ['functional']
 # a template, then change the cmd line as seen below:
 
 [self-tests+browser.selenium]
-cmd = python manage.py alfajor-runserver 8001
+cmd = python manage.py testserver --addrport=8001
 server_url = http://localhost:8001
 ping-address = localhost:8001
 
@@ -40,9 +46,5 @@ java -jar selenium-server.jar
 
 = Errata =
 
-* WSGI tests unsupported yet.
 * Known bug: running functional tests also runs other tests
-* It'd be better to write a new test.py and stick it in management/commands. Go for it.
 * It'd be nice to automatically start up selenium.
-* Doesn't work in sqlite. Under sqlite, django creates an in-memory test database, which the modified runserver command is unable to interact with. For this to work, it'd need the new test.py as noted above.
-* You can use Django's fixture management if you use TransactionTestCase and run from django.db import transaction; transaction.commit() before running your tests. Otherwise (or if you use django's TestCase), you'll be testing through the web browser against the database while modified fixtures directly but in a transaction, so you won't see the data from the fixtures.
