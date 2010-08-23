@@ -1,5 +1,6 @@
 # Django settings for example_project project.
 
+TEST_SERVER_ADDRPORT='8008'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -89,8 +90,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django_alfajor',
+    #'django_alfajor',
     'django_nose',
+    'foo',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )
